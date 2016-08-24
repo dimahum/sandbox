@@ -50,4 +50,5 @@ public class PlayerManager : MonoBehaviour {
 	void ChangeAnimationState(int value){
 		animator.SetInteger ("AnimState", value);
 	}
+
 }
