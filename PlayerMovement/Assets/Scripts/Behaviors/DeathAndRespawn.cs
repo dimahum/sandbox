@@ -22,7 +22,6 @@ public class DeathAndRespawn : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D target){
-		Debug.Log ("=====" + target.tag);
 		if (target.tag == RESPAWN_TAG) {
 			respawnX = target.transform.position.x;
 			respawnY = target.transform.position.y;
@@ -33,9 +32,6 @@ public class DeathAndRespawn : MonoBehaviour {
 	}
 
 	void OnRespawn() {
-//		GetComponent<Transform> ().position.x = respawnX;
-//		GetComponent<Transform> ().position.y = respawnY;
-		//szstransform.position.x = respawnX;
 		transform.localPosition = new Vector3 (respawnX, respawnY);
 	}
 }
