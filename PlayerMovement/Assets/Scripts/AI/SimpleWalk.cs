@@ -25,7 +25,8 @@ public class SimpleWalk : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		if(col.gameObject.name.StartsWith("Wall")) {
+		if(col.gameObject.name.Contains("Wall") ||
+			col.gameObject.name.StartsWith("Enem")) {
 			direction *= -1.0f;
 		}
 	}
