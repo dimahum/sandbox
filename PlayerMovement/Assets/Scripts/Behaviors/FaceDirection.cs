@@ -19,6 +19,6 @@ public class FaceDirection : AbstractBehavior {
 			inputState.direction = Directions.Left;
 		}
 
-		transform.localScale = new Vector3 ((float)inputState.direction, 1, 1);
+		spriteRenderer.flipX = left;
 	}
 }

@@ -28,6 +28,7 @@ public class SimpleWalk : MonoBehaviour {
 		if(col.gameObject.name.Contains("Wall") ||
 			col.gameObject.name.StartsWith("Enem")) {
 			direction *= -1.0f;
+			transform.localScale = new Vector3 (-direction, 1, 1);
 		}
 	}
 }

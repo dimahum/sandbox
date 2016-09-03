@@ -9,6 +9,8 @@ public class DeathAndRespawn : MonoBehaviour {
 	private float respawnX;
 	private float respawnY;
 
+	public GameObject deathAnimation;
+
 	// Use this for initialization
 	void Start () {
 		Transform playerTransform = GetComponent<Transform> ();
@@ -33,5 +35,9 @@ public class DeathAndRespawn : MonoBehaviour {
 
 	void OnRespawn() {
 		transform.localPosition = new Vector3 (respawnX, respawnY);
+
+		var anim = deathAnimation.GetComponent<UIAnimation> ();
+		if (anim)
+			anim.StartAnimation ();
 	}
 }
