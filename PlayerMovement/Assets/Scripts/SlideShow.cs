@@ -1,26 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class SlideInfo
+{
+	public Sprite sprite;
+	public string text;
+}
 
 public class SlideShow : MonoBehaviour
 {
 
-	public Sprite[] elements;
+	public SlideInfo[] elements;
+	public float duration = 5.0f;
+	public UnityEvent unityEvent;
 
 	private int currIndex = 0;
-
-	public float minimum = 0.0f;
-	public float maximum = 1.0f;
-	public float duration = 5.0f;
+	private float minimum = 0.0f;
+	private float maximum = 1.0f;
 	private float startTime;
-	public bool fadeIn = false;
-
-	public SpriteRenderer spriteRenderer;
+	private bool fadeIn = false;
+	private SpriteRenderer spriteRenderer;
+	private TextMesh subtitle;
 
 	void Start ()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer> ();
-		spriteRenderer.sprite = elements [currIndex];
+		subtitle = GetComponentInChildren<TextMesh> ();
+		spriteRenderer.sprite = elements [currIndex].sprite;
+		subtitle.text = elements [currIndex].text;
 	}
 
 	void Update ()
@@ -59,12 +69,14 @@ public class SlideShow : MonoBehaviour
 
 	void OnFinishSlideShow ()
 	{
-		SceneManager.LoadScene ("Level_0");
+		if (unityEvent != null)
+			unityEvent.Invoke ();
 	}
 
 	void LoadNextSlide ()
 	{
 		currIndex++;
-		spriteRenderer.sprite = elements [currIndex];
+		spriteRenderer.sprite = elements [currIndex].sprite;
+		subtitle.text = elements [currIndex].text;
 	}
 }
