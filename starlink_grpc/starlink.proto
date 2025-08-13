@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package SpaceX.API.Device;
+
+// Message types for Starlink status requests
+message Request {
+  uint64 id = 1;
+  oneof request {
+    GetStatusRequest get_status = 1004;
+    GetHistoryRequest get_history = 1005;
+  }
+}
+
+message Response {
+  uint64 id = 1;
+  oneof response {
+    GetStatusResponse get_status = 1004;
+    GetHistoryResponse get_history = 1005;
+  }
+}
+
+// Status request and response
+message GetStatusRequest {}
+
+message GetStatusResponse {
+  DeviceInfo device_info = 1;
+  DeviceState device_state = 2;
+}
+
+// Device information
+message DeviceInfo {
+  string id = 1;
+  string hardware_version = 2;
+  string software_version = 3;
+  string country_code = 4;
+  int32 utc_offset_s = 5;
+}
+
+// Device state
+message DeviceState {
+  double uptime_s = 1;
+}
+
+// History request and response (simplified)
+message GetHistoryRequest {}
+
+message GetHistoryResponse {
+  uint64 current_time = 1;
+  repeated float pop_ping_drop_rate = 1001;
+  repeated float pop_ping_latency_ms = 1002;
+  repeated float downlink_throughput_bps = 1003;
+  repeated float uplink_throughput_bps = 1004;
+}
+
+// Service definition
+service Device {
+  rpc Handle(Request) returns (Response);
+}
